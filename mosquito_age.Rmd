@@ -35,17 +35,21 @@ $$
 C(a) \propto  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m}}
 $$
 Sporozoite prevalences $p(a)$ and sporozoite intensities (given infection)
-$i(a)$ are informed by experiment 1 and mosquitoes survival rates $g(a)$ are
-informed by experiment 2. We will assume that the vector competence and survival
-are independent from each other. We'll assume that $p(a)$ follows a beta
-distribution, the parameters of which will be estimated from the binomial
-estimate and its confidence interval from the presence/absence raw data. Values
-for $p(a)$ will then be randomly drawed from this beta distribution. Given that
+$i(a)$ are informed by experiment 1, mosquitoes survival rates $g(a)$ are
+informed by experiment 2 and the parasite maturation rate is informed by
+experiment 3. We will assume that the vector competence and survival and the
+parasite maturation are independent from each other. We'll further assume that
+$p(a)$ follows a beta distribution, the parameters of which will be estimated
+from the binomial estimate and its confidence interval from the presence/absence
+raw data and we will assume too that $m$ follows a gamma distribution, the
+parameters of which are estimated in a similar way. Values for $p(a)$ and $m$
+will then be randomly drawn from these beta and gamma distribution. Given that
 results from experiment 1 show that the distributions of sporozoites intensities
 do not look like any clear distribution, it will probably be better to perform
 non-parametric bootstrapping of the data in order to generate values of
-sporozoites intensities. As for the mosquito survival rates, we will take the
-estimates from the mixed-effect model of experiment 2.
+sporozoites intensities. As for the mosquito survival rates, we will simply
+compute the expected life expectancy from the non-parametrically boostrapped
+data.
 
 ## Data from experiment 1
 
@@ -67,7 +71,7 @@ age_names <- sort(unique(fig2$age_class))
 ### Sporozoite prevalences
 
 A function that converts confidence intervals boundary values of a proportion
-into shape parameters of a beta distribution:
+into parameters of a probability distribution:
 
 ```{r}
 ci2pars <- function(ci, f, pars, p = .95) {
@@ -112,6 +116,8 @@ i <- fig2 |>
   setNames(age_names)
 ```
 
+They don't really look like any known distribution:
+
 ```{r}
 hist(log(i$`4-day-old`), n = 50)
 hist(log(i$`12-day-old`), n = 50)
@@ -119,26 +125,23 @@ hist(log(i$`12-day-old`), n = 50)
 
 ## Experiment 2
 
+Loading and preparing the data:
+
 ```{r message = FALSE}
 fig3 <- "data/fig3_survival_data.txt" |>
   read_delim() |> 
   filter(age_class != "8-day-old")
 ```
 
-```{r}
-fig3 |> 
-  filter(age_class == "4-day-old") |> 
-  group_by(daysPI) |> 
-  tally() |> 
-  mutate(d = cumsum(n)) |> 
-  with(plot(daysPI, d))
-```
+The data for 4-day old:
 
 ```{r}
 age4 <- fig3 |> 
   filter(age_class == "4-day-old") |> 
   pull(daysPI)
 ```
+
+The data for 12-day old:
 
 ```{r}
 inf_status <- sort(unique(fig3$infection_status))
@@ -153,6 +156,8 @@ age12 <- fig3 |>
 
 ## Experiment 3
 
+Loading and preparing the data:
+
 ```{r message = FALSE}
 fig4 <- "data/fig4_EIP_data.txt" |>
   read_delim() |> 
@@ -161,28 +166,27 @@ fig4 <- "data/fig4_EIP_data.txt" |>
   mutate_at("spz", as.logical)
 ```
 
+The parameters of the gamma distribution that models the distribution of the
+maturation rate:
 
 ```{r warning = FALSE}
 mod <- glm(spz ~ dpi, binomial, fig4)
+invtransf <- family(mod)$linkinv
+
 xs <- seq(min(fig4$dpi), max(fig4$dpi), le = 1000)
 ys <- predict(mod, data.frame(dpi = xs), se.fit = TRUE)
-fit <- ys$fit
-invtransf <- family(mod)$linkinv
-low <- invtransf(ys$fit - 1.96 * ys$se.fit)
-upp <- invtransf(ys$fit + 1.96 * ys$se.fit)
-fit <- invtransf(fit)
 
-plot(xs, fit, type = "l")
-lines(xs, low, lty = 2)
-lines(xs, upp, lty = 2)
-abline(h = .5)
+ci <- tibble(xs  = xs,
+             low = invtransf(ys$fit - 1.96 * ys$se.fit),
+             upp = invtransf(ys$fit + 1.96 * ys$se.fit))
 
-ci <- tibble(xs, low, upp)
-
-m <- ci2pars(c(filter(ci, .5 < upp)$xs[1], filter(ci, .5 < low)$xs[1]), qgamma, 1:2)
+m <- 1 / ci2pars(c(filter(ci, .5 < upp)$xs[1],
+                   filter(ci, .5 < low)$xs[1]), qgamma, 1:2)
 ```
 
 ## Simulating data
+
+The simulator of a distribution of values of the vectorial capacity:
 
 ```{r}
 simulate <- function(p, i, g, N = 10000) {
@@ -194,6 +198,8 @@ simulate <- function(p, i, g, N = 10000) {
 }
 ```
 
+Peforming the simulations for the 4 groups:
+
 ```{r}
 sim_age4           <- simulate(p_par$`4-day-old`,   i$`4-day-old`, age4)
 sim_age12_ExpInf   <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-infected`)
@@ -201,17 +207,36 @@ sim_age12_ExpNoinf <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Expose
 sim_age12_Uninf    <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Uninfected control`)
 ```
 
-```{r}
-hist(log(sim_age4))
-hist(log(sim_age12_ExpInf))
-hist(log(sim_age12_ExpNoinf))
-hist(log(sim_age12_Uninf))
-```
-
 Checking that stationarity has been reached:
 
 ```{r}
 walk(list(sim_age4, sim_age12_ExpInf, sim_age12_ExpNoinf, sim_age12_Uninf),
      function(x, ...) plot(cummean(x), type = "l", ...))
+```
+
+```{r}
+range(sim_age4)
+```
+
+```{r}
+d1 <- density(log(sim_age4))
+d2 <- density(log(sim_age12_ExpInf))
+d3 <- density(log(sim_age12_ExpNoinf))
+d4 <- density(log(sim_age12_Uninf))
+```
+
+```{r}
+lines2 <- function(...) lines(..., lwd = 2)
+plot(NA, xlim = c(-27, -5), ylim = c(0, .2), xlab = "vectorial capacity", ylab = "density")
+with(d1, lines2(x, y))
+with(d2, lines2(x, y, col = 2))
+with(d3, lines2(x, y, col = 3))
+with(d4, lines2(x, y, col = 4))
+legend("topleft",
+       legend = c("4-day old",
+                  "uninfected control",
+                  "exposed uninfected",
+                  "exposed infected"),
+       col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
 
