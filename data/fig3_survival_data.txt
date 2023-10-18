@@ -1,0 +1,658 @@
+"mosquito_id" "cup" "age_class" "isolate" "exposure" "infection_status" "daysPI" "censor"
+1 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 1 1
+2 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 1 1
+3 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 1 1
+4 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 1 1
+5 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 1 1
+6 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 1 1
+7 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 1 1
+8 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 1 1
+9 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 1 1
+10 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 1 1
+11 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 2 1
+12 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 2 1
+13 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 2 1
+14 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 2 1
+15 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 2 1
+16 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 2 1
+17 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 3 1
+18 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 3 1
+19 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 3 1
+20 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 3 1
+21 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 3 1
+22 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 3 1
+23 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 3 1
+24 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 3 1
+25 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 3 1
+26 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 3 1
+27 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 3 1
+28 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 3 1
+29 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 3 1
+30 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 3 1
+31 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 3 1
+32 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 4 1
+33 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 4 1
+34 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 4 1
+35 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 4 1
+36 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 4 1
+37 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 4 1
+38 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 4 1
+39 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 4 1
+40 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 4 1
+41 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 4 1
+42 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 5 1
+43 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 5 1
+44 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 5 1
+45 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 5 1
+46 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 5 1
+47 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 5 1
+48 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 6 1
+49 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 6 1
+50 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 6 1
+51 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 6 1
+52 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 6 1
+53 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 6 1
+54 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 6 1
+55 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 6 1
+56 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 7 1
+57 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 7 1
+58 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 7 1
+59 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 7 1
+60 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 7 1
+61 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 7 1
+62 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 7 1
+63 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 7 1
+64 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 7 1
+65 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 7 1
+66 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 7 1
+67 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 8 1
+68 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 8 1
+69 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 8 1
+70 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 8 1
+71 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 8 1
+72 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 8 1
+73 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 8 1
+74 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 9 1
+75 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 9 1
+76 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 9 1
+77 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 9 1
+78 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 9 1
+79 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 9 1
+80 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 9 1
+81 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 9 1
+82 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 9 1
+83 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 9 1
+84 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 9 1
+85 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 9 1
+86 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 10 1
+87 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 10 1
+88 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 10 1
+89 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 10 1
+90 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 10 1
+91 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 10 1
+92 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 10 1
+93 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 10 1
+94 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 10 1
+95 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 10 1
+96 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 10 1
+97 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 10 1
+98 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 10 1
+99 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 10 1
+100 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 10 1
+101 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 10 1
+102 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 10 1
+103 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+104 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+105 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+106 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+107 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+108 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 10 1
+109 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 11 1
+110 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 11 1
+111 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 11 1
+112 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 11 1
+113 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 11 1
+114 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 11 1
+115 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 11 1
+116 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 11 1
+117 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 11 1
+118 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 11 1
+119 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 11 1
+120 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 11 1
+121 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 11 1
+122 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 11 1
+123 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 11 1
+124 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 11 1
+125 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+126 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+127 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+128 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+129 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+130 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+131 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 12 1
+132 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 12 1
+133 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 12 1
+134 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 12 1
+135 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 12 1
+136 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 12 1
+137 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 12 1
+138 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 12 1
+139 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 12 1
+140 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 12 1
+141 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 12 1
+142 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 12 1
+143 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 12 1
+144 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 12 1
+145 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 12 1
+146 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 12 1
+147 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 12 1
+148 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 12 1
+149 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 12 1
+150 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 12 1
+151 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 13 1
+152 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 13 1
+153 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 13 1
+154 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 13 1
+155 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 13 1
+156 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 13 1
+157 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 13 1
+158 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 13 1
+159 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 13 1
+160 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 13 1
+161 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 13 1
+162 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 13 1
+163 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 13 1
+164 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 13 1
+165 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 13 1
+166 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 13 1
+167 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 13 1
+168 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 13 1
+169 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 13 1
+170 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 14 1
+171 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 14 1
+172 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 14 1
+173 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 14 1
+174 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 14 1
+175 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 14 1
+176 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 14 1
+177 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 14 1
+178 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 14 1
+179 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 14 1
+180 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 14 1
+181 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 14 1
+182 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 14 1
+183 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 14 1
+184 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 14 1
+185 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 14 1
+186 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 14 1
+187 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 14 1
+188 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 15 1
+189 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 15 1
+190 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 15 1
+191 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 15 1
+192 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 15 1
+193 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 15 1
+194 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 15 1
+195 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 15 1
+196 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 15 1
+197 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 15 1
+198 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 15 1
+199 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 15 1
+200 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 15 1
+201 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 16 1
+202 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 16 1
+203 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 16 1
+204 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 16 1
+205 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 16 1
+206 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 16 1
+207 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 16 1
+208 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 16 1
+209 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 16 1
+210 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 16 1
+211 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 16 1
+212 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 16 1
+213 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 16 1
+214 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 16 1
+215 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 16 1
+216 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 16 1
+217 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 16 1
+218 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+219 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+220 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+221 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+222 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+223 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 16 1
+224 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+225 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+226 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+227 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+228 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+229 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 16 1
+230 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 17 1
+231 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 17 1
+232 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 17 1
+233 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 17 1
+234 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 17 1
+235 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 17 1
+236 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 17 1
+237 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 17 1
+238 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 17 1
+239 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 17 1
+240 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 17 1
+241 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 17 1
+242 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 17 1
+243 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 17 1
+244 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 17 1
+245 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 17 1
+246 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 17 1
+247 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 17 1
+248 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 17 1
+249 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 17 1
+250 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 17 1
+251 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 17 1
+252 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 17 1
+253 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 17 1
+254 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 17 1
+255 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 18 1
+256 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 18 1
+257 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 18 1
+258 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 18 1
+259 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 18 1
+260 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 18 1
+261 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 18 1
+262 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 18 1
+263 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 18 1
+264 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 18 1
+265 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 18 1
+266 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 18 1
+267 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 18 1
+268 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 18 1
+269 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 18 1
+270 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 18 1
+271 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 18 1
+272 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 18 1
+273 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 18 1
+274 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 18 1
+275 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 19 1
+276 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 19 1
+277 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 19 1
+278 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 19 1
+279 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 19 1
+280 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 19 1
+281 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 19 1
+282 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 19 1
+283 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 19 1
+284 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 19 1
+285 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 19 1
+286 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 19 1
+287 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 19 1
+288 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 19 1
+289 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 19 1
+290 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 19 1
+291 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 19 1
+292 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 19 1
+293 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 19 1
+294 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 19 1
+295 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 19 1
+296 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+297 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+298 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+299 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+300 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+301 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 19 1
+302 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 20 1
+303 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 20 1
+304 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 20 1
+305 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 20 1
+306 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 20 1
+307 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 20 1
+308 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 20 1
+309 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 20 1
+310 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 20 1
+311 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 20 1
+312 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 20 1
+313 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 20 1
+314 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 20 1
+315 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 20 1
+316 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 20 1
+317 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 20 1
+318 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 20 1
+319 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 20 1
+320 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+321 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+322 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+323 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+324 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+325 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 20 1
+326 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 20 1
+327 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 20 1
+328 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+329 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+330 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+331 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+332 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+333 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 20 1
+334 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+335 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+336 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+337 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+338 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+339 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 21 1
+340 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 21 1
+341 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 21 1
+342 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 21 1
+343 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 21 1
+344 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 21 1
+345 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 21 1
+346 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 21 1
+347 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 21 1
+348 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 21 1
+349 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 21 1
+350 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 21 1
+351 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 21 1
+352 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 21 1
+353 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 21 1
+354 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 21 1
+355 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 21 1
+356 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 21 1
+357 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 21 1
+358 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 21 1
+359 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 21 1
+360 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 21 1
+361 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 21 1
+362 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 21 1
+363 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 22 1
+364 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 22 1
+365 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 22 1
+366 "G3Ano2" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 22 1
+367 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+368 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+369 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+370 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+371 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+372 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+373 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 22 1
+374 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 22 1
+375 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 22 1
+376 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 22 1
+377 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+378 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+379 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+380 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+381 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+382 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 22 1
+383 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 22 1
+384 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 22 1
+385 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 22 1
+386 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+387 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+388 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+389 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+390 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+391 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 22 1
+392 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 22 1
+393 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 22 1
+394 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 22 1
+395 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 22 1
+396 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 22 1
+397 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 23 1
+398 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 23 1
+399 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 23 1
+400 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 23 1
+401 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 23 1
+402 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 23 1
+403 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 23 1
+404 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 23 1
+405 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 23 1
+406 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 23 1
+407 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 23 1
+408 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 23 1
+409 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 23 1
+410 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 23 1
+411 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 23 1
+412 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 23 1
+413 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 23 1
+414 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 23 1
+415 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 23 1
+416 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 24 1
+417 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 24 1
+418 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 24 1
+419 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 24 1
+420 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+421 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+422 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+423 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+424 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+425 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 24 1
+426 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 24 1
+427 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 24 1
+428 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 24 1
+429 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 24 1
+430 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 24 1
+431 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 24 1
+432 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 24 1
+433 "G1Ano2" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 25 1
+434 "G1Bno2" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 25 1
+435 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 25 1
+436 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 25 1
+437 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 25 1
+438 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+439 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+440 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+441 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+442 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+443 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+444 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 25 1
+445 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+446 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+447 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+448 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+449 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+450 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+451 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 25 1
+452 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 25 1
+453 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 25 1
+454 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 25 1
+455 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 26 1
+456 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 26 1
+457 "G3Ano2" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 26 1
+458 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 26 1
+459 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 26 1
+460 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 26 1
+461 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 26 1
+462 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 26 1
+463 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 26 1
+464 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 26 1
+465 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 26 1
+466 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 26 1
+467 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 26 1
+468 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 26 1
+469 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 26 1
+470 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 26 1
+471 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 26 1
+472 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 26 1
+473 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 26 1
+474 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 26 1
+475 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 26 1
+476 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 26 1
+477 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 27 1
+478 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 27 1
+479 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 27 1
+480 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 27 1
+481 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 27 1
+482 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 27 1
+483 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 27 1
+484 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 27 1
+485 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 27 1
+486 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 27 1
+487 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 28 1
+488 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 28 1
+489 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 28 1
+490 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+491 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+492 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+493 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+494 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+495 "G1Ayes2" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 28 1
+496 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 28 1
+497 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 28 1
+498 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 28 1
+499 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 28 1
+500 "G1Byes2" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 28 1
+501 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 28 1
+502 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 28 1
+503 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 28 1
+504 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 28 1
+505 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 29 1
+506 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 29 1
+507 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 29 1
+508 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 29 1
+509 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 29 1
+510 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 29 1
+511 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 29 1
+512 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 29 1
+513 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 29 1
+514 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 29 1
+515 "G1Dyes1" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 29 1
+516 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 29 1
+517 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 29 1
+518 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 30 1
+519 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 30 1
+520 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 30 1
+521 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 30 1
+522 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 30 1
+523 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 30 1
+524 "G1Dno1" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 30 1
+525 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 30 1
+526 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 30 1
+527 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 30 1
+528 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 30 1
+529 "G1Byes1" "12-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 30 1
+530 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 30 1
+531 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 30 1
+532 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 31 1
+533 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 31 1
+534 "G2Bno2" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 31 1
+535 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 31 1
+536 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 31 1
+537 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 31 1
+538 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 31 1
+539 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 31 1
+540 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 31 1
+541 "G1Dyes2" "12-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 31 1
+542 "G2Dyes2" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 31 1
+543 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 32 1
+544 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 32 1
+545 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 32 1
+546 "G1Bno1" "12-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 32 1
+547 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 32 1
+548 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 32 1
+549 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 32 1
+550 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 32 1
+551 "G1Cno1" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 32 1
+552 "G2Cno1" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 32 1
+553 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 32 1
+554 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 32 1
+555 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 32 1
+556 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 32 1
+557 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 32 1
+558 "G1Cyes2" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 32 1
+559 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 32 1
+560 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 33 1
+561 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 33 1
+562 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 33 1
+563 "G3Ano2" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 33 1
+564 "G1Cno2" "12-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 33 1
+565 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 33 1
+566 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 33 1
+567 "G3Ayes2" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 33 1
+568 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 33 1
+569 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 33 1
+570 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 33 1
+571 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 34 1
+572 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 34 1
+573 "G3Ano2" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 34 1
+574 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 34 1
+575 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 34 1
+576 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 34 1
+577 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 34 1
+578 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 34 1
+579 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 34 1
+580 "G2Ayes1" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 34 1
+581 "G1Cyes1" "12-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 34 1
+582 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 34 1
+583 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 35 1
+584 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 35 1
+585 "G1Dno2" "12-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 35 1
+586 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 35 1
+587 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 35 1
+588 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 35 1
+589 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 35 1
+590 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 35 1
+591 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 36 1
+592 "G2Ano2" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 36 1
+593 "G2Bno1" "8-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 36 1
+594 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 36 1
+595 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 36 1
+596 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 36 1
+597 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 36 1
+598 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 36 1
+599 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 36 1
+600 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 36 1
+601 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 36 1
+602 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 37 1
+603 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 37 1
+604 "G2Dno2" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 37 1
+605 "G3Dno2" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 37 1
+606 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 37 1
+607 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 37 1
+608 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 37 1
+609 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 37 1
+610 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 37 1
+611 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 38 1
+612 "G3Bno2" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 38 1
+613 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 38 1
+614 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 38 1
+615 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 38 1
+616 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 38 1
+617 "G2Cyes2" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 38 1
+618 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 38 1
+619 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 38 1
+620 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 38 1
+621 "G2Dyes1" "8-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 38 1
+622 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 39 1
+623 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 39 1
+624 "G1Ano1" "12-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 40 1
+625 "G3Bno1" "4-day-old" "isolate B (36 gam/µl)" "no" "Uninfected control" 40 1
+626 "G3Byes2" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 40 1
+627 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 40 1
+628 "G1Ayes1" "12-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 40 1
+629 "G2Ayes2" "8-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 40 1
+630 "G3Dyes1" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 40 1
+631 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 41 1
+632 "G2Byes2" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 41 1
+633 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 41 1
+634 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 42 1
+635 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 42 1
+636 "G2Ano1" "8-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 43 1
+637 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 43 1
+638 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 43 1
+639 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-infected" 43 1
+640 "G2Dno1" "8-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 44 1
+641 "G3Cyes1" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 44 1
+642 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 44 1
+643 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 44 1
+644 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 45 1
+645 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 45 1
+646 "G3Ano1" "4-day-old" "isolate A (40 gam/µl)" "no" "Uninfected control" 46 1
+647 "G2Cno2" "8-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 46 1
+648 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-uninfected" 46 1
+649 "G3Ayes1" "4-day-old" "isolate A (40 gam/µl)" "yes" "Exposed-infected" 46 1
+650 "G3Byes1" "4-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-infected" 46 1
+651 "G3Dno1" "4-day-old" "isolate D (40 gam/µl)" "no" "Uninfected control" 47 1
+652 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-uninfected" 47 1
+653 "G3Dyes2" "4-day-old" "isolate D (40 gam/µl)" "yes" "Exposed-uninfected" 47 1
+654 "G2Cyes1" "8-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 47 1
+655 "G3Cno1" "4-day-old" "isolate C (80 gam/µl)" "no" "Uninfected control" 48 1
+656 "G2Byes1" "8-day-old" "isolate B (36 gam/µl)" "yes" "Exposed-uninfected" 51 1
+657 "G3Cyes2" "4-day-old" "isolate C (80 gam/µl)" "yes" "Exposed-infected" 51 1
