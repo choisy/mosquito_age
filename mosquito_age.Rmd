@@ -1,0 +1,217 @@
+---
+title: "Figure 5"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages
+
+```{r message = FALSE}
+library(readr)
+library(dplyr)
+library(purrr)
+```
+
+## Capacity formula
+
+To make things simpler, let's consider only the ingredients of capacity that we
+have studied here as a function of age $a$:
+
+$$
+C(a) \propto  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m(a)}}
+$$
+Everything else will be a multiplicative constant. We don't care too much about
+the exact values of such a constant because we will express everything relative
+to the 4-day-old group. Futhermore, in the results, we will learn from
+experiment 3 that $m(a)$ does not change with age. So, for figure 5 we will be
+able to simply consider the following formula:
+
+$$
+C(a) \propto  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m}}
+$$
+Sporozoite prevalences $p(a)$ and sporozoite intensities (given infection)
+$i(a)$ are informed by experiment 1 and mosquitoes survival rates $g(a)$ are
+informed by experiment 2. We will assume that the vector competence and survival
+are independent from each other. We'll assume that $p(a)$ follows a beta
+distribution, the parameters of which will be estimated from the binomial
+estimate and its confidence interval from the presence/absence raw data. Values
+for $p(a)$ will then be randomly drawed from this beta distribution. Given that
+results from experiment 1 show that the distributions of sporozoites intensities
+do not look like any clear distribution, it will probably be better to perform
+non-parametric bootstrapping of the data in order to generate values of
+sporozoites intensities. As for the mosquito survival rates, we will take the
+estimates from the mixed-effect model of experiment 2.
+
+## Data from experiment 1
+
+Loading and preparing the data:
+
+```{r message = FALSE}
+fig2 <- "data/fig2_sporozoite_data.txt" |>
+  read_delim() |> 
+  filter(age_class != "8-day-old") |> 
+  mutate(intensity = 2^{-Ct})
+```
+
+The names of the age classes:
+
+```{r}
+age_names <- sort(unique(fig2$age_class))
+```
+
+### Sporozoite prevalences
+
+A function that converts confidence intervals boundary values of a proportion
+into shape parameters of a beta distribution:
+
+```{r}
+ci2pars <- function(ci, f, pars, p = .95) {
+  p <- (1 - p) / 2
+  
+  f_par <- function(par1, par2) {
+    c(f(p, par1, par2), f(1 - p, par1, par2))
+  }
+
+  f_fit <- function(pars) {
+    sum((f_par(pars[1], pars[2]) - ci)^2)
+  }
+  
+  optim(pars, f_fit)$par
+}
+```
+
+The shape parameters of the beta distribution of the mean sporozoites
+prevalences ($p(a)$):
+
+```{r warning = FALSE}
+p_par <- fig2 |> 
+  group_by(age_class) |> 
+  summarize(x   = sum(positive), n = length(positive)) |> 
+  mutate(prop   = map2(x, n, prop.test),
+         ci     = map(prop, magrittr::extract2, "conf.int"),
+         shapes = map(ci, ci2pars, qbeta, 1:2)) |> 
+  pull(shapes) |> 
+  setNames(age_names)
+```
+
+### Sporozoite intensities
+
+The data on sporozoites intensities, given infection:
+
+```{r}
+i <- fig2 |> 
+  filter(positive > 0) |> 
+  group_by(age_class) |> 
+  group_split() |> 
+  map(pull, intensity) |> 
+  setNames(age_names)
+```
+
+```{r}
+hist(log(i$`4-day-old`), n = 50)
+hist(log(i$`12-day-old`), n = 50)
+```
+
+## Experiment 2
+
+```{r message = FALSE}
+fig3 <- "data/fig3_survival_data.txt" |>
+  read_delim() |> 
+  filter(age_class != "8-day-old")
+```
+
+```{r}
+fig3 |> 
+  filter(age_class == "4-day-old") |> 
+  group_by(daysPI) |> 
+  tally() |> 
+  mutate(d = cumsum(n)) |> 
+  with(plot(daysPI, d))
+```
+
+```{r}
+age4 <- fig3 |> 
+  filter(age_class == "4-day-old") |> 
+  pull(daysPI)
+```
+
+```{r}
+inf_status <- sort(unique(fig3$infection_status))
+
+age12 <- fig3 |> 
+  filter(age_class == "12-day-old") |> 
+  group_by(infection_status) |> 
+  group_split() |> 
+  map(pull, daysPI) |> 
+  setNames(inf_status)
+```
+
+## Experiment 3
+
+```{r message = FALSE}
+fig4 <- "data/fig4_EIP_data.txt" |>
+  read_delim() |> 
+  select(dpi, spz) |> 
+  na.exclude() |> 
+  mutate_at("spz", as.logical)
+```
+
+
+```{r warning = FALSE}
+mod <- glm(spz ~ dpi, binomial, fig4)
+xs <- seq(min(fig4$dpi), max(fig4$dpi), le = 1000)
+ys <- predict(mod, data.frame(dpi = xs), se.fit = TRUE)
+fit <- ys$fit
+invtransf <- family(mod)$linkinv
+low <- invtransf(ys$fit - 1.96 * ys$se.fit)
+upp <- invtransf(ys$fit + 1.96 * ys$se.fit)
+fit <- invtransf(fit)
+
+plot(xs, fit, type = "l")
+lines(xs, low, lty = 2)
+lines(xs, upp, lty = 2)
+abline(h = .5)
+
+ci <- tibble(xs, low, upp)
+
+m <- ci2pars(c(filter(ci, .5 < upp)$xs[1], filter(ci, .5 < low)$xs[1]), qgamma, 1:2)
+```
+
+## Simulating data
+
+```{r}
+simulate <- function(p, i, g, N = 10000) {
+  p_val <- do.call(rbeta, c(list(N), unname(p)))
+  i_val <- sample(i, N, replace = TRUE)
+  g_val <- 1 / sample(g, N, replace = TRUE)
+  m_val <- do.call(rgamma, c(list(N), m))
+  p_val * i_val * exp(-g_val) / g_val
+}
+```
+
+```{r}
+sim_age4           <- simulate(p_par$`4-day-old`,   i$`4-day-old`, age4)
+sim_age12_ExpInf   <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-infected`)
+sim_age12_ExpNoinf <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-uninfected`)
+sim_age12_Uninf    <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Uninfected control`)
+```
+
+```{r}
+hist(log(sim_age4))
+hist(log(sim_age12_ExpInf))
+hist(log(sim_age12_ExpNoinf))
+hist(log(sim_age12_Uninf))
+```
+
+Checking that stationarity has been reached:
+
+```{r}
+walk(list(sim_age4, sim_age12_ExpInf, sim_age12_ExpNoinf, sim_age12_Uninf),
+     function(x, ...) plot(cummean(x), type = "l", ...))
+```
+
