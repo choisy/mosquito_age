@@ -278,9 +278,4 @@ legend("right",
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
 
-## Figure 5S
-
-```{r}
-fig4
-```
 
