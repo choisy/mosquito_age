@@ -19,37 +19,29 @@ library(purrr)
 
 ## Capacity formula
 
-To make things simpler, let's consider only the ingredients of capacity that we
-have studied here as a function of age $a$:
+The expression of the vectorial capacity as a function of as:
 
 $$
-C(a) \propto  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m(a)}}
+C(a) = M\times B^2  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m(a)}}
 $$
-Everything else will be a multiplicative constant. We don't care too much about
-the exact values of such a constant because we will express everything relative
-to the 4-day-old group. Futhermore, in the results, we will learn from
-experiment 3 that $m(a)$ does not change with age. So, for figure 5 we will be
-able to simply consider the following formula:
-
-$$
-C(a) \propto  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m}}
-$$
-Sporozoite prevalences $p(a)$ and sporozoite intensities (given infection)
-$i(a)$ are informed by experiment 1, mosquitoes survival rates $g(a)$ are
-informed by experiment 2 and the parasite maturation rate is informed by
-experiment 3. We will assume that the vector competence and survival and the
-parasite maturation are independent from each other. We'll further assume that
-$p(a)$ follows a beta distribution, the parameters of which will be estimated
-from the binomial estimate and its confidence interval from the presence/absence
-raw data and we will assume too that $m$ follows a gamma distribution, the
-parameters of which are estimated in a similar way. Values for $p(a)$ and $m$
-will then be randomly drawn from these beta and gamma distribution. Given that
-results from experiment 1 show that the distributions of sporozoites intensities
-do not look like any clear distribution, it will probably be better to perform
-non-parametric bootstrapping of the data in order to generate values of
-sporozoites intensities. As for the mosquito survival rates, we will simply
-compute the expected life expectancy from the non-parametrically boostrapped
-data.
+Where $M = 20$ is the ratio of mosquitoes to humans and $B = 1/3$ is the
+mosquito biting rate. These parameters were not studied here and will thus be
+assumed to be constants independent of age. Sporozoite prevalences $p(a)$ and
+sporozoite intensities (given that there is infection) $i(a)$ are informed by
+experiment 1, mosquitoes survival rates $g(a)$ are informed by experiment 2 and
+the parasite maturation rate is informed by experiment 3. We will assume that
+the vector competence and survival and the parasite maturation are independent
+from each other. We'll further assume that $p(a)$ follows a beta distribution,
+the parameters of which will be estimated from the binomial estimate and its
+confidence interval from the presence/absence raw data and we will assume too
+that $m$ follows a gamma distribution, the parameters of which are estimated in
+a similar way. Values for $p(a)$ and $m$ will then be randomly drawn from these
+beta and gamma distributions respectively. Given that results from experiment 1
+show that the distributions of sporozoites intensities do not look like any
+known distribution, it will probably be better to perform non-parametric
+bootstrapping of the data in order to generate values of sporozoites
+intensities. As for the mosquito survival rates, we will simply compute the
+expected life expectancy from the non-parametrically boostrapped data.
 
 ## Data from experiment 1
 
