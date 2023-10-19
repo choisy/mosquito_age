@@ -190,7 +190,7 @@ simulate <- function(p, i, g, N = 10000) {
   i_val <- sample(i, N, replace = TRUE)
   g_val <- 1 / sample(g, N, replace = TRUE)
   m_val <- do.call(rgamma, c(list(N), m))
-  MB2 * p_val * i_val * exp(-g_val) / g_val
+  MB2 * p_val * i_val * exp(-g_val / m_val) / g_val
 }
 ```
 
