@@ -278,4 +278,63 @@ legend("right",
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
 
+## Figure 5SB
+
+Preparing the data:
+  
+```{r}
+fig4b <- fig4 |> 
+  select(age_class, oocyst, broken_oocyst) |> 
+  na.exclude() |> 
+  filter(oocyst > 0) |> 
+  mutate(unbroken_oocyst = oocyst,
+         total_oocyst    = oocyst + broken_oocyst) |> 
+  select(-oocyst) |> 
+  group_by(age_class) |> 
+  group_split(.keep = FALSE) |> 
+  setNames(sort(unique(fig4$age_class)))
+```
+
+The inverse logit (i.e. logistic) function:
+  
+```{r}
+inverse_logit <- function(x) {
+  exp(x) / (1 + exp(x))
+}
+```
+
+```{r}
+proportions <- function(x) {
+  models <- x |> 
+    group_by(total_oocyst) |> 
+    group_map(~ glm(matrix(c(broken_oocyst, unbroken_oocyst), ncol = 2) ~ 1, binomial, .x))
+  
+  estimates <- models |> 
+    map(coef) |> 
+    map(inverse_logit) |> 
+    bind_rows()
+  
+  ci <- models |> 
+    map(confint) |> 
+    map(inverse_logit) |> 
+    bind_rows()
+  
+  cbind(sort(unique(x$total_oocyst)), estimates, ci) |> 
+    setNames(c("oocyst", "estimate", "lower", "upper"))
+}
+```
+
+```{r}
+prop4days <- proportions(fig4b$`4-day-old`)
+prop12days <- proportions(fig4b$`12-day-old`)
+```
+
+```{r}
+eps <- .15
+with(prop4days, plot(oocyst - eps, estimate, ylim = 0:1, xlab = ""))
+with(prop12days, points(oocyst + eps, estimate, col = 2))
+with(filter(prop4days, !is.nan(upper)), arrows(oocyst - eps, lower, oocyst - eps, upper, .05, 90, 3))
+with(filter(prop12days, !is.nan(upper)), arrows(oocyst + eps, lower, oocyst + eps, upper, .05, 90, 3, col = 2))
+```
+
 
