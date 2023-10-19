@@ -6,7 +6,7 @@ editor_options:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 ## Packages
@@ -219,9 +219,13 @@ range(sim_age12_ExpNoinf)
 range(sim_age12_Uninf)
 ```
 
-```{r}
+Computing densities of transformed simulated VC data:
+
+```{r computes_density}
 f <- log
-density2 <- function(...) density(..., from = 0, to = 30)
+from <- 0
+to <- 36
+density2 <- function(...) density(..., from = from, to = to)
 
 d1 <- density2(f(sim_age4))
 d2 <- density2(f(sim_age12_ExpInf))
@@ -229,18 +233,44 @@ d3 <- density2(f(sim_age12_ExpNoinf))
 d4 <- density2(f(sim_age12_Uninf))
 ```
 
-```{r}
+A function that adds boxplots to a figure:
+
+```{r add_boxplot}
+add_boxplot <- function(x, y, f = log, t = 0, eps = .000005, lwd = 2, col = 1) {
+  x <- as.vector(boxplot(f(x[x > t]), plot = FALSE)$stats)
+  segments2 <- function(...) segments(..., lwd = lwd, col = col)
+  segments2(0, y, x[2], y)
+  segments2(x[4], y, x[5], y)
+  segments2(x[3], y - eps, x[3], y + eps)
+  polygon(c(x[2], x[4], x[4], x[2]), rep(c(y - eps, y + eps), each = 2), lwd = lwd, border = col)
+}
+```
+
+Figure 5:
+
+```{r dependson = "computes_density", dependson = "add_boxplot"}
 lines2 <- function(...) lines(..., lwd = 2)
 
-plot(NA, xlim = c(0, 30), ylim = c(0, .00025), xlab = "log(vectorial capacity)", ylab = "density")
+plot(NA, xlim = c(from, to), ylim = c(0, .00031), xaxs = "i", yaxs = "i",
+     xlab = "log(vectorial capacity)", ylab = "density", axes = FALSE)
+axis(1)
+axis(2, seq(0, 25, by = 5) / 100000)
+
 with(d1, lines2(x, y))
 with(d2, lines2(x, y, col = 2))
 with(d3, lines2(x, y, col = 3))
 with(d4, lines2(x, y, col = 4))
-legend("topright",
+legend("right",
        legend = c("4-day old",
-                  "uninfected control",
-                  "exposed uninfected",
-                  "exposed infected"),
+                  "12-day old uninfected control",
+                  "12-day old exposed uninfected",
+                  "12-day old exposed infected"),
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
+
+epsilon <- .000008
+add_boxplot(sim_age4, .000295 + epsilon, col = 1)
+add_boxplot(sim_age12_Uninf, .00028 + epsilon, col = 4)
+add_boxplot(sim_age12_ExpNoinf, .000265 + epsilon, col = 3)
+add_boxplot(sim_age12_ExpInf, .00025 + epsilon, col = 2)
 ```
+
