@@ -51,7 +51,7 @@ Loading and preparing the data:
 fig2 <- "data/fig2_sporozoite_data.txt" |>
   read_delim() |> 
   filter(age_class != "8-day-old") |> 
-  mutate(intensity = 2^{-Ct})
+  mutate(intensity = 10^(-(Ct - 40) / 3.3))
 ```
 
 The names of the age classes:
