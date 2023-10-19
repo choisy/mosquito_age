@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
+mosquito_age_cache/
+mosquito_age_files/
