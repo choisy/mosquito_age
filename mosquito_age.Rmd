@@ -151,8 +151,11 @@ age12 <- fig3 |>
 Loading and preparing the data:
 
 ```{r message = FALSE}
-fig4 <- "data/fig4_EIP_data.txt" |>
-  read_delim() |> 
+fig4 <- read_delim("data/fig4_EIP_data.txt")
+```
+
+```{r fig4a, message = FALSE}
+fig4a <- fig4 |>
   select(dpi, spz) |> 
   na.exclude() |> 
   mutate_at("spz", as.logical)
@@ -161,11 +164,11 @@ fig4 <- "data/fig4_EIP_data.txt" |>
 The parameters of the gamma distribution that models the distribution of the
 maturation rate:
 
-```{r warning = FALSE}
-mod <- glm(spz ~ dpi, binomial, fig4)
+```{r compute_m, warning = FALSE, dependson = "fig4a"}
+mod <- glm(spz ~ dpi, binomial, fig4a)
 invtransf <- family(mod)$linkinv
 
-xs <- seq(min(fig4$dpi), max(fig4$dpi), le = 1000)
+xs <- seq(min(fig4a$dpi), max(fig4a$dpi), le = 1000)
 ys <- predict(mod, data.frame(dpi = xs), se.fit = TRUE)
 
 ci <- tibble(xs  = xs,
@@ -180,7 +183,7 @@ m <- 1 / ci2pars(c(filter(ci, .5 < upp)$xs[1],
 
 The simulator of a distribution of values of the vectorial capacity:
 
-```{r}
+```{r simulator, dependson = "compute_m"}
 M <- 20
 B <- 1 / 3
 MB2 <- M * B * B
@@ -194,9 +197,9 @@ simulate <- function(p, i, g, N = 1e7) {
 }
 ```
 
-Peforming the simulations for the 4 groups:
+Performing the simulations for the 4 groups:
 
-```{r}
+```{r simulations, dependson = "simulator"}
 sim_age4           <- simulate(p_par$`4-day-old`,   i$`4-day-old`, age4)
 sim_age12_ExpInf   <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-infected`)
 sim_age12_ExpNoinf <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-uninfected`)
@@ -205,14 +208,14 @@ sim_age12_Uninf    <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Uninfe
 
 Checking that stationarity has been reached:
 
-```{r}
+```{r dependson = "simulations"}
 walk(list(sim_age4, sim_age12_ExpInf, sim_age12_ExpNoinf, sim_age12_Uninf),
      function(x, ...) plot(cummean(x), type = "l", ...))
 ```
 
 The ranges of values for the simulated vectorial capacities:
 
-```{r}
+```{r dependson = "simulations"}
 range(sim_age4)
 range(sim_age12_ExpInf)
 range(sim_age12_ExpNoinf)
@@ -236,7 +239,7 @@ d4 <- density2(f(sim_age12_Uninf))
 A function that adds boxplots to a figure:
 
 ```{r add_boxplot}
-add_boxplot <- function(x, y, f = log, t = 0, eps = .000005, lwd = 2, col = 1) {
+add_boxplot <- function(x, y, f = log, t = 1e-20, eps = 5e-6, lwd = 2, col = 1) {
   x <- as.vector(boxplot(f(x[x > t]), plot = FALSE)$stats)
   segments2 <- function(...) segments(..., lwd = lwd, col = col)
   segments2(0, y, x[2], y)
@@ -248,13 +251,13 @@ add_boxplot <- function(x, y, f = log, t = 0, eps = .000005, lwd = 2, col = 1) {
 
 Figure 5:
 
-```{r dependson = "computes_density", dependson = "add_boxplot"}
+```{r dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
 lines2 <- function(...) lines(..., lwd = 2)
 
 plot(NA, xlim = c(from, to), ylim = c(0, .00031), xaxs = "i", yaxs = "i",
      xlab = "log(vectorial capacity)", ylab = "density", axes = FALSE)
 axis(1)
-axis(2, seq(0, 25, by = 5) / 100000)
+axis(2, seq(0, 25, by = 5) / 1e5)
 
 with(d1, lines2(x, y))
 with(d2, lines2(x, y, col = 2))
@@ -267,10 +270,12 @@ legend("right",
                   "12-day old exposed infected"),
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 
-epsilon <- .000008
+epsilon <- 8e-6
 add_boxplot(sim_age4, .000295 + epsilon, col = 1)
 add_boxplot(sim_age12_Uninf, .00028 + epsilon, col = 4)
 add_boxplot(sim_age12_ExpNoinf, .000265 + epsilon, col = 3)
 add_boxplot(sim_age12_ExpInf, .00025 + epsilon, col = 2)
 ```
+
+## Figure 5S
 
