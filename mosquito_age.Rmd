@@ -263,19 +263,24 @@ with(d1, lines2(x, y))
 with(d2, lines2(x, y, col = 2))
 with(d3, lines2(x, y, col = 3))
 with(d4, lines2(x, y, col = 4))
+
+epsilon <- 8e-6
+add_boxplot(sim_age4,           .000295 + epsilon, col = 1)
+add_boxplot(sim_age12_Uninf,    .00028  + epsilon, col = 4)
+add_boxplot(sim_age12_ExpNoinf, .000265 + epsilon, col = 3)
+add_boxplot(sim_age12_ExpInf,   .00025  + epsilon, col = 2)
+
 legend("right",
        legend = c("4-day old",
                   "12-day old uninfected control",
                   "12-day old exposed uninfected",
                   "12-day old exposed infected"),
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
-
-epsilon <- 8e-6
-add_boxplot(sim_age4, .000295 + epsilon, col = 1)
-add_boxplot(sim_age12_Uninf, .00028 + epsilon, col = 4)
-add_boxplot(sim_age12_ExpNoinf, .000265 + epsilon, col = 3)
-add_boxplot(sim_age12_ExpInf, .00025 + epsilon, col = 2)
 ```
 
 ## Figure 5S
+
+```{r}
+fig4
+```
 
