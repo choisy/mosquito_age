@@ -185,7 +185,7 @@ M <- 20
 B <- 1 / 3
 MB2 <- M * B * B
 
-simulate <- function(p, i, g, N = 10000) {
+simulate <- function(p, i, g, N = 1e7) {
   p_val <- do.call(rbeta, c(list(N), unname(p)))
   i_val <- sample(i, N, replace = TRUE)
   g_val <- 1 / sample(g, N, replace = TRUE)
@@ -210,29 +210,37 @@ walk(list(sim_age4, sim_age12_ExpInf, sim_age12_ExpNoinf, sim_age12_Uninf),
      function(x, ...) plot(cummean(x), type = "l", ...))
 ```
 
+The ranges of values for the simulated vectorial capacities:
+
 ```{r}
 range(sim_age4)
+range(sim_age12_ExpInf)
+range(sim_age12_ExpNoinf)
+range(sim_age12_Uninf)
 ```
 
 ```{r}
-d1 <- density(log(sim_age4))
-d2 <- density(log(sim_age12_ExpInf))
-d3 <- density(log(sim_age12_ExpNoinf))
-d4 <- density(log(sim_age12_Uninf))
+f <- log
+density2 <- function(...) density(..., from = 0, to = 30)
+
+d1 <- density2(f(sim_age4))
+d2 <- density2(f(sim_age12_ExpInf))
+d3 <- density2(f(sim_age12_ExpNoinf))
+d4 <- density2(f(sim_age12_Uninf))
 ```
 
 ```{r}
 lines2 <- function(...) lines(..., lwd = 2)
-plot(NA, xlim = c(-27, -5), ylim = c(0, .2), xlab = "vectorial capacity", ylab = "density")
+
+plot(NA, xlim = c(0, 30), ylim = c(0, .00025), xlab = "log(vectorial capacity)", ylab = "density")
 with(d1, lines2(x, y))
 with(d2, lines2(x, y, col = 2))
 with(d3, lines2(x, y, col = 3))
 with(d4, lines2(x, y, col = 4))
-legend("topleft",
+legend("topright",
        legend = c("4-day old",
                   "uninfected control",
                   "exposed uninfected",
                   "exposed infected"),
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
-
