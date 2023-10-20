@@ -16,6 +16,8 @@ library(readr)
 library(dplyr)
 library(purrr)
 library(magrittr)
+library(mgcv)
+library(mgcv.helper) # remotes::install_github("samclifford/mgcv.helper")
 ```
 
 ## Capacity formula
@@ -333,39 +335,6 @@ props <- fig4b |>
   ungroup()
 ```
 
-A function that computes the predictions of a model:
-
-```{r}
-predictions <- function(x, ci = .95) {
-  data <- x$data
-  qt_val <- qt(1 - (1 - ci) / 2, nrow(data))
-  xs <- seq(min(data$total_oocyst), max(data$total_oocyst), le = 512)
-
-  predict(x, data.frame(total_oocyst = xs), se.fit = TRUE) |> 
-    extract(c("fit", "se.fit")) |> 
-    as_tibble() |> 
-    bind_cols(total_oocyst = xs) |> 
-    mutate(lower = inverse_logit(fit - qt_val * se.fit),
-           upper = inverse_logit(fit + qt_val * se.fit),
-           fit   = inverse_logit(fit)) |> 
-    select(-se.fit) |> 
-    select(total_oocyst, everything())
-}
-```
-
-```{r}
-f <- function(d, x) {
-  glm(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ poly(total_oocyst, d, raw = TRUE),
-    binomial, x)
-}
-
-f(2, filter(fig4b, age_class == "4-day-old"))
-
-a <- map(1:20, f, filter(fig4b, age_class == "4-day-old"))
-b <- map_dbl(a, AIC)
-which.min(b)
-plot(b[1:17])
-```
 
 ```{r}
 polygon2 <- function(x, y1, y2, col = 1, alpha = .2, ...) {
@@ -408,14 +377,43 @@ props |>
   filter(age_class == "12-day-old", !is.nan(upper)) |>
   with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
 
-fig4b |> 
-  group_by(age_class) |> 
-  group_split() %>%
-  map2(c(5, 5), ., f) |> 
-  map(predictions) |> 
-  walk2(2:1, add_predictions)
+#fig4b |> 
+#  group_by(age_class) |> 
+#  group_split() %>%
+#  map2(c(5, 5), ., f) |> 
+#  map(predictions) |> 
+#  walk2(2:1, add_predictions)
 
 legend("topleft", legend = c("4-day-old", "12-day-old"), col = 1:2, lty = 1, bty = "n")
 ```
+
+
+```{r}
+gam2 <- function(formula, family = gaussian(), data = list(), ...) {
+  out <- mgcv::gam(formula, family, data, ...)
+  out$data <- data
+  out
+}
+```
+
+```{r}
+a <- fig4b |> 
+  filter(age_class == "12-day-old") %>%
+   gam2(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ s(total_oocyst, bs = "tp"),
+        binomial, .)
+```
+
+```{r}
+
+```
+
+
+
+```{r}
+a$data
+```
+
+
+
 
 
