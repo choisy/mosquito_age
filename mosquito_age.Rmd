@@ -281,6 +281,7 @@ legend("right",
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
 
+
 ## Figure 5SB
 
 The inverse logit (i.e. logistic) function:
@@ -326,6 +327,23 @@ modelling <- function(x, bs = "tp") {
 }
 ```
 
+Where the possible values for `bs` are:
+
+* `tp`: thin plate
+* `ts`: thin plate with a smoothing penalty
+* `ds`: Duchon spline (generalization of the thin plate)
+* `cr`: cubic regression
+* `cs`: cubic regression with a shrinkage
+* `cc`: cyclic cubic regression
+* `sos`: splines on a sphere
+* `bs`: B-spline
+* `ps`: P-spline
+* `cp`: cyclic P-spline
+* `re`: random effect
+* `mrf`: Markov random field
+* `gp`: Gaussian process
+* `so`: soap film smooths
+
 A function that computes the predictions of a model:
 
 ```{r}
@@ -366,6 +384,46 @@ add_predictions <- function(x, col = 1) {
 }
 ```
 
+A tuning of `arrows()`:
+
+```{r}
+arrows2 <- function(...) arrows(..., length = .05, angle = 90, code = 3)
+```
+
+A function that makes the figure with a given smoother:
+
+```{r}
+make_figS5B <- function(s = "tp", eps = .15) {
+  props |> 
+  filter(age_class == "4-day-old") |> 
+  with(plot(total_oocyst - eps, estimate, ylim = 0:1,
+            xlab = "total number of oocysts",
+            ylab = "proportion of ruptured oocysts"))
+
+  props |> 
+    filter(age_class == "12-day-old") |>
+    with(points(total_oocyst + eps, estimate, col = 2))
+  
+  props |> 
+    filter(age_class == "4-day-old", !is.nan(upper)) |>
+    with(arrows2(total_oocyst - eps, lower, total_oocyst - eps, upper))
+  
+  props |> 
+    filter(age_class == "12-day-old", !is.nan(upper)) |>
+    with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
+  
+  fig4b |> 
+    group_by(age_class) |> 
+    group_split() |> 
+    map(modelling, s) |> # tp, cr, bs, ps
+    map(predictions) |> 
+    walk2(2:1, add_predictions)
+  
+  legend("topleft", legend = c("4-day-old", "12-day-old"),
+         col = 1:2, lty = 1, bty = "n")
+}
+```
+
 Preparing the data:
 
 ```{r}
@@ -386,39 +444,16 @@ props <- fig4b |>
   ungroup()
 ```
 
-Making the figure:
+Make figure S5B:
 
 ```{r}
-eps <- .15 # to prevent the 2 age classes to overlap
-
-arrows2 <- function(...) arrows(..., length = .05, angle = 90, code = 3)
-
-props |> 
-  filter(age_class == "4-day-old") |> 
-  with(plot(total_oocyst - eps, estimate, ylim = 0:1,
-            xlab = "total number of oocysts",
-            ylab = "proportion of ruptured oocysts"))
-
-props |> 
-  filter(age_class == "12-day-old") |>
-  with(points(total_oocyst + eps, estimate, col = 2))
-
-props |> 
-  filter(age_class == "4-day-old", !is.nan(upper)) |>
-  with(arrows2(total_oocyst - eps, lower, total_oocyst - eps, upper))
-
-props |> 
-  filter(age_class == "12-day-old", !is.nan(upper)) |>
-  with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
-
-fig4b |> 
-  group_by(age_class) |> 
-  group_split() |> 
-  map(modelling) |> 
-  map(predictions) |> 
-  walk2(2:1, add_predictions)
-
-legend("topleft", legend = c("4-day-old", "12-day-old"),
-       col = 1:2, lty = 1, bty = "n")
+make_figS5B("tp")
+title("thin plate")
+make_figS5B("cr")
+title("cubic regression")
+make_figS5B("bs")
+title("B-spline")
+make_figS5B("ps")
+title("P-spline")
 ```
 
