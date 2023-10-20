@@ -315,6 +315,57 @@ proportions <- function(x) {
 }
 ```
 
+A function that models the data:
+
+```{r}
+modelling <- function(x, bs = "tp") {
+  out <- mgcv::gam(matrix(c(broken_oocyst, oocyst),
+                          ncol = 2) ~ s(total_oocyst, bs = bs), binomial, x)
+  out$data <- x
+  out
+}
+```
+
+A function that computes the predictions of a model:
+
+```{r}
+predictions <- function(x, ci = .95) {
+  data <- x$data
+  qt_val <- qt(1 - (1 - ci) / 2, nrow(data))
+  xs <- seq(min(data$total_oocyst), max(data$total_oocyst), le = 512)
+
+  predict(x, data.frame(total_oocyst = xs), se.fit = TRUE) |> 
+    extract(c("fit", "se.fit")) |> 
+    as_tibble() |> 
+    bind_cols(total_oocyst = xs) |> 
+    mutate(lower = inverse_logit(fit - qt_val * se.fit),
+           upper = inverse_logit(fit + qt_val * se.fit),
+           fit   = inverse_logit(fit)) |> 
+    select(-se.fit) |> 
+    select(total_oocyst, everything())
+}
+```
+
+A tuned version of the `polygon()` function:
+
+```{r}
+polygon2 <- function(x, y1, y2, col = 1, alpha = .2, ...) {
+  polygon(c(x, rev(x)), c(y1, rev(y2)), border = NA,
+          col = adjustcolor(col, alpha), ...)
+}
+```
+
+A function that adds a model predictions to a plot:
+
+```{r}
+add_predictions <- function(x, col = 1) {
+  with(x, {
+    polygon2(total_oocyst, lower, upper, col)
+    lines(total_oocyst, fit, col = col)
+  })
+}
+```
+
 Preparing the data:
 
 ```{r}
@@ -333,23 +384,6 @@ props <- fig4b |>
   group_by(age_class) |> 
   group_modify(~ proportions(.x)) |> 
   ungroup()
-```
-
-
-```{r}
-polygon2 <- function(x, y1, y2, col = 1, alpha = .2, ...) {
-  polygon(c(x, rev(x)), c(y1, rev(y2)), border = NA,
-          col = adjustcolor(col, alpha), ...)
-}
-```
-
-```{r}
-add_predictions <- function(x, col = 1) {
-  with(x, {
-    polygon2(total_oocyst, lower, upper, col)
-    lines(total_oocyst, fit, col = col)
-  })
-}
 ```
 
 Making the figure:
@@ -377,43 +411,14 @@ props |>
   filter(age_class == "12-day-old", !is.nan(upper)) |>
   with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
 
-#fig4b |> 
-#  group_by(age_class) |> 
-#  group_split() %>%
-#  map2(c(5, 5), ., f) |> 
-#  map(predictions) |> 
-#  walk2(2:1, add_predictions)
+fig4b |> 
+  group_by(age_class) |> 
+  group_split() |> 
+  map(modelling) |> 
+  map(predictions) |> 
+  walk2(2:1, add_predictions)
 
-legend("topleft", legend = c("4-day-old", "12-day-old"), col = 1:2, lty = 1, bty = "n")
+legend("topleft", legend = c("4-day-old", "12-day-old"),
+       col = 1:2, lty = 1, bty = "n")
 ```
-
-
-```{r}
-gam2 <- function(formula, family = gaussian(), data = list(), ...) {
-  out <- mgcv::gam(formula, family, data, ...)
-  out$data <- data
-  out
-}
-```
-
-```{r}
-a <- fig4b |> 
-  filter(age_class == "12-day-old") %>%
-   gam2(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ s(total_oocyst, bs = "tp"),
-        binomial, .)
-```
-
-```{r}
-
-```
-
-
-
-```{r}
-a$data
-```
-
-
-
-
 
