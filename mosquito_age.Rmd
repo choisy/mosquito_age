@@ -393,7 +393,7 @@ arrows2 <- function(...) arrows(..., length = .05, angle = 90, code = 3)
 A function that makes the figure with a given smoother:
 
 ```{r}
-make_figS5B <- function(s = "tp", eps = .15) {
+plot_proportions <- function(props, eps = .15) {
   props |> 
   filter(age_class == "4-day-old") |> 
   with(plot(total_oocyst - eps, estimate, ylim = 0:1,
@@ -411,14 +411,26 @@ make_figS5B <- function(s = "tp", eps = .15) {
   props |> 
     filter(age_class == "12-day-old", !is.nan(upper)) |>
     with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
-  
-  fig4b |> 
+}
+```
+
+```{r}
+add_model_predictions <- function(data, s) {
+  data |> 
     group_by(age_class) |> 
     group_split() |> 
     map(modelling, s) |> # tp, cr, bs, ps
     map(predictions) |> 
     walk2(2:1, add_predictions)
-  
+}
+```
+
+Make figure S5B:
+
+```{r}
+make_figS5B <- function(props, data, s = "tp", eps = .15) {
+  plot_proportions(props, eps = .15)
+  add_model_predictions(data, s)
   legend("topleft", legend = c("4-day-old", "12-day-old"),
          col = 1:2, lty = 1, bty = "n")
 }
@@ -437,7 +449,7 @@ fig4b <- fig4 |>
 Computing the proportions of ruptured oocysts per age class and total number of
 oocysts:
 
-```{r}
+```{r message = FALSE}
 props <- fig4b |> 
   group_by(age_class) |> 
   group_modify(~ proportions(.x)) |> 
@@ -447,13 +459,37 @@ props <- fig4b |>
 Make figure S5B:
 
 ```{r}
-make_figS5B("tp")
+make_figS5B(props, fig4b, "tp")
 title("thin plate")
-make_figS5B("cr")
+make_figS5B(props, fig4b, "cr")
 title("cubic regression")
-make_figS5B("bs")
+make_figS5B(props, fig4b, "bs")
 title("B-spline")
-make_figS5B("ps")
+make_figS5B(props, fig4b, "ps")
 title("P-spline")
+```
+
+### Other types of plots
+
+```{r}
+proportions <- function(x) {
+  models <- x |> 
+    mutate(total_oocyst = oocyst) |> ### adding this
+    group_by(total_oocyst) |> 
+    group_map(~ glm(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ 1, binomial, .x))
+  
+  estimates <- models |> 
+    map(coef) |> 
+    map(inverse_logit) |> 
+    bind_rows()
+  
+  ci <- models |> 
+    map(confint) |> 
+    map(inverse_logit) |> 
+    bind_rows()
+  
+  cbind(sort(unique(x$total_oocyst)), estimates, ci) |> 
+    setNames(c("total_oocyst", "estimate", "lower", "upper"))
+}
 ```
 
