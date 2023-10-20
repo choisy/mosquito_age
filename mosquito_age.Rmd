@@ -469,27 +469,3 @@ make_figS5B(props, fig4b, "ps")
 title("P-spline")
 ```
 
-### Other types of plots
-
-```{r}
-proportions <- function(x) {
-  models <- x |> 
-    mutate(total_oocyst = oocyst) |> ### adding this
-    group_by(total_oocyst) |> 
-    group_map(~ glm(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ 1, binomial, .x))
-  
-  estimates <- models |> 
-    map(coef) |> 
-    map(inverse_logit) |> 
-    bind_rows()
-  
-  ci <- models |> 
-    map(confint) |> 
-    map(inverse_logit) |> 
-    bind_rows()
-  
-  cbind(sort(unique(x$total_oocyst)), estimates, ci) |> 
-    setNames(c("total_oocyst", "estimate", "lower", "upper"))
-}
-```
-
