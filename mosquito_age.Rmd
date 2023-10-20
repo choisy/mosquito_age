@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 library(readr)
 library(dplyr)
 library(purrr)
+library(magrittr)
 ```
 
 ## Capacity formula
@@ -89,7 +90,7 @@ p_par <- fig2 |>
   group_by(age_class) |> 
   summarize(x   = sum(positive), n = length(positive)) |> 
   mutate(prop   = map2(x, n, prop.test),
-         ci     = map(prop, magrittr::extract2, "conf.int"),
+         ci     = map(prop, extract2, "conf.int"),
          shapes = map(ci, ci2pars, qbeta, 1:2)) |> 
   pull(shapes) |> 
   setNames(age_names)
@@ -312,24 +313,80 @@ proportions <- function(x) {
 }
 ```
 
+Preparing the data:
+
+```{r}
+fig4b <- fig4 |> 
+  select(age_class, oocyst, broken_oocyst) |> 
+  na.exclude() |> 
+  mutate(total_oocyst = oocyst + broken_oocyst) |> 
+  filter(total_oocyst > 0)
+```
+
 Computing the proportions of ruptured oocysts per age class and total number of
 oocysts:
 
 ```{r}
-props <- fig4 |> 
-  select(age_class, oocyst, broken_oocyst) |> 
-  na.exclude() |> 
-  mutate(total_oocyst = oocyst + broken_oocyst) |> 
-  filter(total_oocyst > 0) |> 
+props <- fig4b |> 
   group_by(age_class) |> 
   group_modify(~ proportions(.x)) |> 
   ungroup()
 ```
 
+A function that computes the predictions of a model:
+
+```{r}
+predictions <- function(x, ci = .95) {
+  data <- x$data
+  qt_val <- qt(1 - (1 - ci) / 2, nrow(data))
+  xs <- seq(min(data$total_oocyst), max(data$total_oocyst), le = 512)
+
+  predict(x, data.frame(total_oocyst = xs), se.fit = TRUE) |> 
+    extract(c("fit", "se.fit")) |> 
+    as_tibble() |> 
+    bind_cols(total_oocyst = xs) |> 
+    mutate(lower = inverse_logit(fit - qt_val * se.fit),
+           upper = inverse_logit(fit + qt_val * se.fit),
+           fit   = inverse_logit(fit)) |> 
+    select(-se.fit) |> 
+    select(total_oocyst, everything())
+}
+```
+
+```{r}
+f <- function(d, x) {
+  glm(matrix(c(broken_oocyst, oocyst), ncol = 2) ~ poly(total_oocyst, d, raw = TRUE),
+    binomial, x)
+}
+
+f(2, filter(fig4b, age_class == "4-day-old"))
+
+a <- map(1:20, f, filter(fig4b, age_class == "4-day-old"))
+b <- map_dbl(a, AIC)
+which.min(b)
+plot(b[1:17])
+```
+
+```{r}
+polygon2 <- function(x, y1, y2, col = 1, alpha = .2, ...) {
+  polygon(c(x, rev(x)), c(y1, rev(y2)), border = NA,
+          col = adjustcolor(col, alpha), ...)
+}
+```
+
+```{r}
+add_predictions <- function(x, col = 1) {
+  with(x, {
+    polygon2(total_oocyst, lower, upper, col)
+    lines(total_oocyst, fit, col = col)
+  })
+}
+```
+
 Making the figure:
 
 ```{r}
-eps <- .15
+eps <- .15 # to prevent the 2 age classes to overlap
 
 arrows2 <- function(...) arrows(..., length = .05, angle = 90, code = 3)
 
@@ -351,7 +408,14 @@ props |>
   filter(age_class == "12-day-old", !is.nan(upper)) |>
   with(arrows2(total_oocyst + eps, lower, total_oocyst + eps, upper, col = 2))
 
-legend("topright", legend = c("4-day-old", "12-day-old"), col = 1:2, lty = 1, bty = "n")
+fig4b |> 
+  group_by(age_class) |> 
+  group_split() %>%
+  map2(c(5, 5), ., f) |> 
+  map(predictions) |> 
+  walk2(2:1, add_predictions)
+
+legend("topleft", legend = c("4-day-old", "12-day-old"), col = 1:2, lty = 1, bty = "n")
 ```
 
 
