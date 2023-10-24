@@ -479,6 +479,16 @@ eip <- fig4 |>
 ```
 
 ```{r}
-with(eip, plot(total_oocyst, prop)
+with(eip, plot(total_oocyst, prop))
+```
+
+Relaxing filter:
+
+```{r}
+fig4 |> 
+#  filter(8 < dpi, dpi < 15, oocyst > 0) |> 
+  mutate(total_oocyst = broken_oocyst + oocyst,
+         prop = broken_oocyst / total_oocyst) |> 
+  with(plot(total_oocyst, prop))
 ```
 
