@@ -17,7 +17,7 @@ library(dplyr)
 library(purrr)
 library(magrittr)
 library(mgcv)
-library(mgcv.helper) # remotes::install_github("samclifford/mgcv.helper")
+#library(mgcv.helper) # remotes::install_github("samclifford/mgcv.helper")
 ```
 
 ## Capacity formula
@@ -467,5 +467,18 @@ make_figS5B(props, fig4b, "bs")
 title("B-spline")
 make_figS5B(props, fig4b, "ps")
 title("P-spline")
+```
+
+## Titi
+
+```{r}
+eip <- fig4 |> 
+  filter(8 < dpi, dpi < 15, oocyst > 0) |> 
+  mutate(total_oocyst = broken_oocyst + oocyst,
+         prop = broken_oocyst / total_oocyst)
+```
+
+```{r}
+with(eip, plot(total_oocyst, prop)
 ```
 
