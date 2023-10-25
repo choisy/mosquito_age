@@ -17,7 +17,6 @@ library(dplyr)
 library(purrr)
 library(magrittr)
 library(mgcv)
-#library(mgcv.helper) # remotes::install_github("samclifford/mgcv.helper")
 ```
 
 ## Capacity formula
@@ -25,26 +24,23 @@ library(mgcv)
 The expression of the vectorial capacity as a function of as:
 
 $$
-C(a) = M\times B^2  \frac{p(a) \times i(a)}{g(a)} e^{-\frac{g(a)}{m(a)}}
+C(a) = M\times B^2  \frac{p(a)}{g(a)} e^{-\frac{g(a)}{m(a)}}
 $$
 Where $M = 20$ is the ratio of mosquitoes to humans and $B = 1/3$ is the
 mosquito biting rate. These parameters were not studied here and will thus be
-assumed to be constants independent of age. Sporozoite prevalences $p(a)$ and
-sporozoite intensities (given that there is infection) $i(a)$ are informed by
-experiment 1, mosquitoes survival rates $g(a)$ are informed by experiment 2 and
-the parasite maturation rate is informed by experiment 3. We will assume that
-the vector competence and survival and the parasite maturation are independent
-from each other. We'll further assume that $p(a)$ follows a beta distribution,
-the parameters of which will be estimated from the binomial estimate and its
-confidence interval from the presence/absence raw data and we will assume too
-that $m$ follows a gamma distribution, the parameters of which are estimated in
-a similar way. Values for $p(a)$ and $m$ will then be randomly drawn from these
-beta and gamma distributions respectively. Given that results from experiment 1
-show that the distributions of sporozoites intensities do not look like any
-known distribution, it will probably be better to perform non-parametric
-bootstrapping of the data in order to generate values of sporozoites
-intensities. As for the mosquito survival rates, we will simply compute the
-expected life expectancy from the non-parametrically boostrapped data.
+assumed to be constants independent of age. Sporozoite prevalences $p(a)$ is
+informed by experiment 1, mosquitoes survival rates $g(a)$ are informed by
+experiment 2 and the parasite maturation rate is informed by experiment 3.
+We will assume that the vector competence and survival and the parasite
+maturation are independent from each other. We'll further assume that $p(a)$
+follows a beta distribution, the parameters of which will be estimated from the
+binomial estimate and its confidence interval from the presence/absence raw data
+and we will assume too that $m$ follows a gamma distribution, the parameters of
+which are estimated in a similar way. Values for $p(a)$ and $m$ will then be
+randomly drawn from these beta and gamma distributions respectively. As for the
+mosquito survival rates, we will simply compute the expected life expectancy
+from the non-parametrically boostrapped data. This allows to preserve as well as
+possible the original distribution of the experimental data.
 
 ## Data from experiment 1
 
@@ -62,8 +58,6 @@ The names of the age classes:
 ```{r}
 age_names <- sort(unique(fig2$age_class))
 ```
-
-### Sporozoite prevalences
 
 A function that converts confidence intervals boundary values of a proportion
 into parameters of a probability distribution:
@@ -96,26 +90,6 @@ p_par <- fig2 |>
          shapes = map(ci, ci2pars, qbeta, 1:2)) |> 
   pull(shapes) |> 
   setNames(age_names)
-```
-
-### Sporozoite intensities
-
-The data on sporozoites intensities, given infection:
-
-```{r}
-i <- fig2 |> 
-  filter(positive > 0) |> 
-  group_by(age_class) |> 
-  group_split() |> 
-  map(pull, intensity) |> 
-  setNames(age_names)
-```
-
-They don't really look like any known distribution:
-
-```{r}
-hist(log(i$`4-day-old`), n = 50)
-hist(log(i$`12-day-old`), n = 50)
 ```
 
 ## Experiment 2
@@ -191,12 +165,11 @@ M <- 20
 B <- 1 / 3
 MB2 <- M * B * B
 
-simulate <- function(p, i, g, N = 1e7) {
+simulate <- function(p, i, g, N = 1e6) {
   p_val <- do.call(rbeta, c(list(N), unname(p)))
-  i_val <- sample(i, N, replace = TRUE)
   g_val <- 1 / sample(g, N, replace = TRUE)
   m_val <- do.call(rgamma, c(list(N), m))
-  MB2 * p_val * i_val * exp(-g_val / m_val) / g_val
+  MB2 * p_val * exp(-g_val / m_val) / g_val
 }
 ```
 
@@ -228,27 +201,27 @@ range(sim_age12_Uninf)
 Computing densities of transformed simulated VC data:
 
 ```{r computes_density}
-f <- log
+f <- log10
 from <- 0
-to <- 36
+to <- 2
 density2 <- function(...) density(..., from = from, to = to)
 
-d1 <- density2(f(sim_age4))
-d2 <- density2(f(sim_age12_ExpInf))
-d3 <- density2(f(sim_age12_ExpNoinf))
-d4 <- density2(f(sim_age12_Uninf))
+d1 <- density2(f(sim_age4[sim_age4 > 1]))
+d2 <- density2(f(sim_age12_ExpInf[sim_age12_ExpInf > 1]))
+d3 <- density2(f(sim_age12_ExpNoinf[sim_age12_ExpNoinf > 1]))
+d4 <- density2(f(sim_age12_Uninf[sim_age12_Uninf > 1]))
 ```
 
 A function that adds boxplots to a figure:
 
 ```{r add_boxplot}
-add_boxplot <- function(x, y, f = log, t = 1e-20, eps = 5e-6, lwd = 2, col = 1) {
+add_boxplot <- function(x, y, f = log10, t = 1e-20, eps = .03, lwd = 2, col = 1) {
   x <- as.vector(boxplot(f(x[x > t]), plot = FALSE)$stats)
   segments2 <- function(...) segments(..., lwd = lwd, col = col)
   segments2(0, y, x[2], y)
   segments2(x[4], y, x[5], y)
   segments2(x[3], y - eps, x[3], y + eps)
-  polygon(c(x[2], x[4], x[4], x[2]), rep(c(y - eps, y + eps), each = 2), lwd = lwd, border = col)
+  polygon(c(x[2], x[4], x[4], x[2]), rep(c(y - eps, y + eps), each = 2), lwd = lwd, border = col, col = adjustcolor(col, .2))
 }
 ```
 
@@ -257,27 +230,30 @@ Figure 5:
 ```{r dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
 lines2 <- function(...) lines(..., lwd = 2)
 
-plot(NA, xlim = c(from, to), ylim = c(0, .00031), xaxs = "i", yaxs = "i",
-     xlab = "log(vectorial capacity)", ylab = "density", axes = FALSE)
-axis(1)
-axis(2, seq(0, 25, by = 5) / 1e5)
+plot(NA, xlim = c(from, to), ylim = c(0, 2.5), xaxs = "i", yaxs = "i",
+     xlab = "vectorial capacity", ylab = "density", axes = FALSE)
+
+ats <- c(1:10, 2:10 * 10)
+axis(1, log10(ats), ats)
+axis(2)
 
 with(d1, lines2(x, y))
 with(d2, lines2(x, y, col = 2))
 with(d3, lines2(x, y, col = 3))
 with(d4, lines2(x, y, col = 4))
 
-epsilon <- 8e-6
-add_boxplot(sim_age4,           .000295 + epsilon, col = 1)
-add_boxplot(sim_age12_Uninf,    .00028  + epsilon, col = 4)
-add_boxplot(sim_age12_ExpNoinf, .000265 + epsilon, col = 3)
-add_boxplot(sim_age12_ExpInf,   .00025  + epsilon, col = 2)
+y0 <- 2.1
+y_step <- .1
+add_boxplot(sim_age4,           y0 + 3 * y_step, col = 1)
+add_boxplot(sim_age12_Uninf,    y0 + 2 * y_step, col = 4)
+add_boxplot(sim_age12_ExpNoinf, y0 +     y_step, col = 3)
+add_boxplot(sim_age12_ExpInf,   y0             , col = 2)
 
-legend("right",
-       legend = c("4-day old",
-                  "12-day old uninfected control",
+legend("left",
+       legend = c(" 4-day old",
+                  "12-day old unexposed control",
                   "12-day old exposed uninfected",
-                  "12-day old exposed infected"),
+                  "12-day old infected"),
        col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
 ```
 
