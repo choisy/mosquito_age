@@ -536,6 +536,10 @@ map2_dfr(mortality, names(mortality), bootstrapping)</code></pre>
 <p>Performing the simulations for the 4 groups (47”):</p>
 <pre class="r"><code>sim_output &lt;- mcmapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALSE, mc.cores = 4) |&gt; 
   setNames(c(&quot;sim_age12_ExpInf&quot;, &quot;sim_age12_ExpNoinf&quot;, &quot;sim_age12_Uninf&quot;, &quot;sim_age4&quot;))</code></pre>
+<p>If you are on Windows and the above line does not work, do this
+instead:</p>
+<pre class="r"><code>sim_output &lt;- mapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALSE) |&gt; 
+  setNames(c(&quot;sim_age12_ExpInf&quot;, &quot;sim_age12_ExpNoinf&quot;, &quot;sim_age12_Uninf&quot;, &quot;sim_age4&quot;))</code></pre>
 <p>Checking that stationarity has been reached:</p>
 <pre class="r"><code>opar &lt;- par(mfrow = c(2, 2))
 walk2(sim_output, names(sim_output),
@@ -546,6 +550,12 @@ walk2(sim_output, names(sim_output),
 <pre class="r"><code>map_dfr(sim_output,
         ~ setNames(as_tibble(matrix(range(.x), 1)), c(&quot;min&quot;, &quot;max&quot;)),
         .id = &quot;group&quot;)</code></pre>
+<pre><code>## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
+## `.name_repair` is omitted as of tibble 2.0.0.
+## ℹ Using compatibility `.name_repair`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
 <pre><code>## # A tibble: 4 × 3
 ##   group                min   max
 ##   &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;

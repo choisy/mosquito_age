@@ -238,6 +238,12 @@ sim_output <- mcmapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALS
   setNames(c("sim_age12_ExpInf", "sim_age12_ExpNoinf", "sim_age12_Uninf", "sim_age4"))
 ```
 
+If you are on Windows and the above line does not work, do this instead:
+
+```{r eval = FALSE}
+sim_output <- mapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALSE) |> 
+  setNames(c("sim_age12_ExpInf", "sim_age12_ExpNoinf", "sim_age12_Uninf", "sim_age4"))
+```
 
 Checking that stationarity has been reached:
 
