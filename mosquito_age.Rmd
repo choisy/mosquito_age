@@ -317,7 +317,7 @@ add_boxplot <- function(x, y, f = log10, t = 1e-20, eps = .1, lwd = 2, col = 1) 
 
 Graph parameters:
 
-```{r}
+```{r graph_par}
 f <- log10
 from <- 0
 to <- log10(60)
@@ -325,13 +325,13 @@ to <- log10(60)
 
 Computing densities of transformed simulated VC data:
 
-```{r computes_density}
-densities <- map(sim_output, ~ density(f(above_threshold(.x)), from = from, to = to))
+```{r computes_density, dependson = "graph_par"}
+densities <- map(sim_output, ~ density(f(above_threshold(.x, 10^from)), from = from, to = to))
 ```
 
 Figure 5:
 
-```{r dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
+```{r dependson = "graph_par", dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
 y0 <- 7.9
 y_step <- .31
 eps <- .1
@@ -347,15 +347,16 @@ axis(2)
 
 walk2(densities, c(2, 3, 4, 1), ~ with(.x, lines2(x, y, col = .y)))
 
-pwalk(list(sim_output, 0:3, c(2, 3, 4, 1)),
+ind <- c(2, 3, 1, 4)
+pwalk(list(sim_output[ind], (0:3), c(2, 3, 4, 1)[ind]),
       function(x, y, z) add_boxplot(x, y0 + y * y_step, col = z, eps = eps))
 
-legend("left",
-       legend = c("  4-day old infected",
-                  "12-day old unexposed (control)",
-                  "12-day old exposed uninfected",
-                  "12-day old infected"),
-       col = c(1, 4:2), lty = 1, lwd = 2, bty = "n")
+legend(0, 7.4, cex = .95,
+       legend = c("  4-day-old observed",
+                  "12-day-old observed",
+                  "12-day-old with survival of uninfected controls",
+                  "12-day-old with survival of exposed-uninfected"),
+       col = c(1, 2, 4, 3), lty = 1, lwd = 2, bty = "n")
 ```
 
 
