@@ -240,6 +240,62 @@ range(sim_age12_ExpNoinf)
 range(sim_age12_Uninf)
 ```
 
+The means:
+
+```{r}
+mean(sim_age4)
+mean(sim_age12_ExpInf)
+mean(sim_age12_ExpNoinf)
+mean(sim_age12_Uninf)
+```
+
+A function that calculates the proportion of the values of a vector `x` that are
+below a threshold `t`:
+
+```{r}
+prop_below_th <- function(x, t = 1) length(x[x < t]) / length(x)
+```
+
+Proportions below 1:
+
+```{r}
+prop_below_th(sim_age4)
+prop_below_th(sim_age12_ExpInf)
+prop_below_th(sim_age12_ExpNoinf)
+prop_below_th(sim_age12_Uninf)
+```
+
+A function that selects the values of a vector `s` above or equal a threshold
+value `t`:
+
+```{r}
+above_threshold <- function(x, t = 1) x[x >= t]
+```
+
+The means for values above 1:
+
+```{r}
+mean(above_threshold(sim_age4))
+mean(above_threshold(sim_age12_ExpInf))
+mean(above_threshold(sim_age12_ExpNoinf))
+mean(above_threshold(sim_age12_Uninf))
+```
+
+A function that computes the standard error of the mean:
+
+```{r}
+stderror <- function(x) sd(x) / sqrt(length(x))
+```
+
+Standard errors of the mean:
+
+```{r}
+stderror(above_threshold(sim_age4))
+stderror(above_threshold(sim_age12_ExpInf))
+stderror(above_threshold(sim_age12_ExpNoinf))
+stderror(above_threshold(sim_age12_Uninf))
+```
+
 Computing densities of transformed simulated VC data:
 
 ```{r computes_density}
