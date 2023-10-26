@@ -17,6 +17,7 @@ library(dplyr)
 library(purrr)
 library(magrittr)
 library(mgcv)
+library(parallel)
 ```
 
 ## Capacity formula
@@ -102,6 +103,24 @@ p_par0$prop |>
   map_dfr(unlist)
 ```
 
+A function that converts a vector into a 1-row tibble:
+
+```{r}
+vec2tibble <- function(x, names = NULL) {
+  out <- as_tibble(matrix(x, 1))
+  if (is.null(names)) return(out)
+  setNames(out, names)
+}
+```
+
+The parameters of the beta distribution:
+
+```{r warning = FALSE}
+p_par |> 
+  map_dfr(vec2tibble, paste("shape", 1:2), .id = "group")
+```
+
+
 ## Experiment 2
 
 Loading and preparing the data:
@@ -109,29 +128,22 @@ Loading and preparing the data:
 ```{r message = FALSE}
 fig3 <- "data/fig3_survival_data.txt" |>
   read_delim() |> 
-  filter(age_class != "8-day-old")
+  filter(age_class != "8-day-old",
+         !(age_class == "4-day-old" & infection_status != "Exposed-infected")) |> 
+  mutate(group = paste(age_class, infection_status, sep = " | ")) |> 
+  select(group, daysPI)
 ```
 
-The data for 4-day old:
+Generating the mortality data:
 
 ```{r}
-age4 <- fig3 |> 
-  filter(age_class == "4-day-old", infection_status == "Exposed-infected") |> 
-  pull(daysPI)
-```
-
-The data for 12-day old:
-
-```{r}
-inf_status <- sort(unique(fig3$infection_status))
-
-age12 <- fig3 |> 
-  filter(age_class == "12-day-old") |> 
-  group_by(infection_status) |> 
+mortality <- fig3 |> 
+  group_by(group) |> 
   group_split() |> 
   map(pull, daysPI) |> 
-  setNames(inf_status)
+  setNames(sort(unique(fig3$group)))
 ```
+
 
 ## Experiment 3
 
@@ -152,16 +164,21 @@ The parameters of the gamma distribution that models the distribution of the
 maturation rate:
 
 ```{r compute_m, warning = FALSE, dependson = "fig4a"}
+ci_val <- .95
+alpha <- (1 - ci_val) / 2
+
 mod <- glm(spz ~ dpi, binomial, fig4a)
 invtransf <- family(mod)$linkinv
 
 xs <- seq(min(fig4a$dpi), max(fig4a$dpi), le = 1000)
 ys <- predict(mod, data.frame(dpi = xs), se.fit = TRUE)
 
+nb_data <- nrow(mod$data)
+
 ci <- tibble(xs  = xs,
              fit = invtransf(ys$fit),
-             low = invtransf(ys$fit - 1.96 * ys$se.fit),
-             upp = invtransf(ys$fit + 1.96 * ys$se.fit))
+             low = invtransf(ys$fit + qt(alpha, nb_data) * ys$se.fit),
+             upp = invtransf(ys$fit + qt(1 - alpha, nb_data) * ys$se.fit))
 
 tmp <- c(filter(ci, .5 < upp)$xs[1], filter(ci, .5 < low)$xs[1])
 
@@ -188,7 +205,7 @@ M <- 20
 B <- 1 / 3
 MB2 <- M * B * B
 
-simulate <- function(p, i, g, N = 1e6) {
+simulate <- function(p, g, N = 1e6) {
   p_val <- do.call(rbeta, c(list(N), unname(p)))
   g_val <- replicate(N, 1 / mean(sample(g, replace = TRUE)))
   m_val <- do.call(rgamma, c(list(N), m))
@@ -196,57 +213,53 @@ simulate <- function(p, i, g, N = 1e6) {
 }
 ```
 
-A function that does the bootstrapping:
+A function that does the bootstrapping, together with diagnostic plots:
 
 ```{r}
-bootstrapping <- function(x, n = 1e4) {
+bootstrapping <- function(x, title, n = 1e4) {
   marc <- replicate(n, 1 / mean(sample(x, replace = TRUE)))
-  plot(cummean(marc), type = "l")
+  plot(cummean(marc), type = "l", ylab = "cumulative mean of the mean", main = title)
   quantile(marc, c(.025, .5, .975))
 }
 ```
 
-Confidence intervals:
+Confidence intervals (5"):
 
 ```{r}
-bootstrapping(age4)
-bootstrapping(age12$`Exposed-infected`)
-bootstrapping(age12$`Exposed-uninfected`)
-bootstrapping(age12$`Uninfected control`)
+opar <- par(mfrow = c(2, 2))
+map2_dfr(mortality, names(mortality), bootstrapping)
+par(opar)
 ```
 
-Performing the simulations for the 4 groups:
+Performing the simulations for the 4 groups (47"):
 
 ```{r simulations, dependson = "simulator"}
-sim_age4           <- simulate(p_par$`4-day-old`,   i$`4-day-old`, age4)
-sim_age12_ExpInf   <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-infected`)
-sim_age12_ExpNoinf <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Exposed-uninfected`)
-sim_age12_Uninf    <- simulate(p_par$`12-day-old`, i$`12-day-old`, age12$`Uninfected control`)
+sim_output <- mcmapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALSE, mc.cores = 4) |> 
+  setNames(c("sim_age12_ExpInf", "sim_age12_ExpNoinf", "sim_age12_Uninf", "sim_age4"))
 ```
+
 
 Checking that stationarity has been reached:
 
 ```{r dependson = "simulations"}
-walk(list(sim_age4, sim_age12_ExpInf, sim_age12_ExpNoinf, sim_age12_Uninf),
-     function(x, ...) plot(cummean(x), type = "l", ...))
+opar <- par(mfrow = c(2, 2))
+walk2(sim_output, names(sim_output),
+      ~ plot(cummean(.x), main = .y, type = "l", ylab = "mean"))
+par(opar)
 ```
 
 The ranges of values for the simulated vectorial capacities:
 
 ```{r dependson = "simulations"}
-range(sim_age4)
-range(sim_age12_ExpInf)
-range(sim_age12_ExpNoinf)
-range(sim_age12_Uninf)
+map_dfr(sim_output,
+        ~ setNames(as_tibble(matrix(range(.x), 1)), c("min", "max")),
+        .id = "group")
 ```
 
 The means:
 
 ```{r}
-mean(sim_age4)
-mean(sim_age12_ExpInf)
-mean(sim_age12_ExpNoinf)
-mean(sim_age12_Uninf)
+map_dbl(sim_output, mean)
 ```
 
 A function that calculates the proportion of the values of a vector `x` that are
@@ -259,10 +272,7 @@ prop_below_th <- function(x, t = 1) length(x[x < t]) / length(x)
 Proportions below 1:
 
 ```{r}
-prop_below_th(sim_age4)
-prop_below_th(sim_age12_ExpInf)
-prop_below_th(sim_age12_ExpNoinf)
-prop_below_th(sim_age12_Uninf)
+map_dbl(sim_output, prop_below_th)
 ```
 
 A function that selects the values of a vector `s` above or equal a threshold
@@ -275,10 +285,7 @@ above_threshold <- function(x, t = 1) x[x >= t]
 The means for values above 1:
 
 ```{r}
-mean(above_threshold(sim_age4))
-mean(above_threshold(sim_age12_ExpInf))
-mean(above_threshold(sim_age12_ExpNoinf))
-mean(above_threshold(sim_age12_Uninf))
+map_dbl(sim_output, ~ mean(above_threshold(.x)))
 ```
 
 A function that computes the standard error of the mean:
@@ -290,42 +297,45 @@ stderror <- function(x) sd(x) / sqrt(length(x))
 Standard errors of the mean:
 
 ```{r}
-stderror(above_threshold(sim_age4))
-stderror(above_threshold(sim_age12_ExpInf))
-stderror(above_threshold(sim_age12_ExpNoinf))
-stderror(above_threshold(sim_age12_Uninf))
-```
-
-Computing densities of transformed simulated VC data:
-
-```{r computes_density}
-f <- log10
-from <- 0
-to <- log10(60)
-density2 <- function(...) density(..., from = from, to = to)
-
-d1 <- density2(f(sim_age4[sim_age4 > 1]))
-d2 <- density2(f(sim_age12_ExpInf[sim_age12_ExpInf > 1]))
-d3 <- density2(f(sim_age12_ExpNoinf[sim_age12_ExpNoinf > 1]))
-d4 <- density2(f(sim_age12_Uninf[sim_age12_Uninf > 1]))
+map_dbl(sim_output, ~ stderror(above_threshold(.x)))
 ```
 
 A function that adds boxplots to a figure:
 
 ```{r add_boxplot}
 add_boxplot <- function(x, y, f = log10, t = 1e-20, eps = .1, lwd = 2, col = 1) {
-  x <- as.vector(boxplot(f(x[x > t]), plot = FALSE)$stats)
+  x <- as.vector(boxplot(f(above_threshold(x, t)), plot = FALSE)$stats)
   segments2 <- function(...) segments(..., lwd = lwd, col = col)
   segments2(0, y, x[2], y)
   segments2(x[4], y, x[5], y)
   segments2(x[3], y - eps, x[3], y + eps)
-  polygon(c(x[2], x[4], x[4], x[2]), rep(c(y - eps, y + eps), each = 2), lwd = lwd, border = col, col = adjustcolor(col, .5))
+  polygon(c(x[2], x[4], x[4], x[2]),
+          rep(c(y - eps, y + eps), each = 2),
+          lwd = lwd, border = col, col = adjustcolor(col, .5))
 }
+```
+
+Graph parameters:
+
+```{r}
+f <- log10
+from <- 0
+to <- log10(60)
+```
+
+Computing densities of transformed simulated VC data:
+
+```{r computes_density}
+densities <- map(sim_output, ~ density(f(above_threshold(.x)), from = from, to = to))
 ```
 
 Figure 5:
 
 ```{r dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
+y0 <- 7.9
+y_step <- .31
+eps <- .1
+
 lines2 <- function(...) lines(..., lwd = 2)
 
 plot(NA, xlim = c(from, to), ylim = c(0, 9), xaxs = "i", yaxs = "i",
@@ -335,17 +345,10 @@ ats <- c(1:10, 2:10 * 10)
 axis(1, log10(ats), ats)
 axis(2)
 
-with(d1, lines2(x, y))
-with(d2, lines2(x, y, col = 2))
-with(d3, lines2(x, y, col = 3))
-with(d4, lines2(x, y, col = 4))
+walk2(densities, c(2, 3, 4, 1), ~ with(.x, lines2(x, y, col = .y)))
 
-y0 <- 7.9
-y_step <- .31
-add_boxplot(sim_age4,           y0 + 3 * y_step, col = 1)
-add_boxplot(sim_age12_Uninf,    y0 + 2 * y_step, col = 4)
-add_boxplot(sim_age12_ExpNoinf, y0 +     y_step, col = 3)
-add_boxplot(sim_age12_ExpInf,   y0             , col = 2)
+pwalk(list(sim_output, 0:3, c(2, 3, 4, 1)),
+      function(x, y, z) add_boxplot(x, y0 + y * y_step, col = z, eps = eps))
 
 legend("left",
        legend = c("  4-day old infected",
