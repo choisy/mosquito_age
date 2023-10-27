@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 
 ## Packages
 
-```{r message = FALSE}
+```{r message = FALSE, cache = FALSE}
 library(readr)
 library(dplyr)
 library(purrr)
@@ -54,17 +54,12 @@ fig2 <- "data/fig2_sporozoite_data.txt" |>
   mutate(intensity = 10^(-(Ct - 40) / 3.3))
 ```
 
-The names of the age classes:
-
-```{r}
-age_names <- sort(unique(fig2$age_class))
-```
-
 A function that converts confidence intervals boundary values of a proportion
 into parameters of a probability distribution:
 
 ```{r}
 ci2pars <- function(ci, f, pars, p = .95) {
+  if (ci[2] < ci[1]) ci <-  ci[2:1]
   p <- (1 - p) / 2
   
   f_par <- function(par1, par2) {
@@ -92,7 +87,7 @@ p_par0 <- fig2 |>
 
 p_par <- p_par0 |> 
   pull(shapes) |> 
-  setNames(age_names)
+  setNames(sort(unique(fig2$age_class)))
 ```
 
 The estimate and confidence interval:
@@ -118,6 +113,24 @@ The parameters of the beta distribution:
 ```{r warning = FALSE}
 p_par |> 
   map_dfr(vec2tibble, paste("shape", 1:2), .id = "group")
+```
+
+Let's visualize these 2 distributions of probabilities:
+
+```{r}
+lwd_val <- 2
+col4 <- 2
+col12 <- 4
+
+xs <- seq(0, 1, le = 500)
+ys <- map(p_par, ~ do.call(dbeta, c(list(xs), as.list(.x))))
+
+plot(xs, ys[[1]], type = "l", xlab = NA, ylab = "density", lwd = lwd_val,
+     ylim = c(0, max(unlist(ys))), col = col12)
+lines(xs, ys[[2]], lwd = 2, col = col4)
+
+legend("topleft", legend = c("  4-day-old", "12-day-old"), col = c(col4, col12),
+       lwd = lwd_val, lty = 1, bty = "n")
 ```
 
 
@@ -177,12 +190,12 @@ nb_data <- nrow(mod$data)
 
 ci <- tibble(xs  = xs,
              fit = invtransf(ys$fit),
-             low = invtransf(ys$fit + qt(alpha, nb_data) * ys$se.fit),
+             low = invtransf(ys$fit + qt(    alpha, nb_data) * ys$se.fit),
              upp = invtransf(ys$fit + qt(1 - alpha, nb_data) * ys$se.fit))
 
 tmp <- c(filter(ci, .5 < upp)$xs[1], filter(ci, .5 < low)$xs[1])
 
-m <- 1 / ci2pars(tmp, qgamma, 1:2)
+inv_m <- ci2pars(tmp, qgamma, 1:2)
 ```
 
 Estimate and confidence interval:
@@ -196,6 +209,15 @@ ci |>
   c(tmp)
 ```
 
+Let's vizualize:
+
+```{r}
+xs <- seq(0, 20, le = 500)
+ys <- dgamma(xs, inv_m[1], inv_m[2])
+plot(xs, ys, type = "l", xlab = "EIP", ylab = "density", lwd = 2, col = 4)
+```
+
+
 ## Simulating data
 
 The simulator of a distribution of values of the vectorial capacity:
@@ -205,33 +227,40 @@ M <- 20
 B <- 1 / 3
 MB2 <- M * B * B
 
-simulate <- function(p, g, N = 1e6) {
+simulate <- function(p, g, N = 1e4) {
   p_val <- do.call(rbeta, c(list(N), unname(p)))
   g_val <- replicate(N, 1 / mean(sample(g, replace = TRUE)))
-  m_val <- do.call(rgamma, c(list(N), m))
-  MB2 * p_val * exp(-g_val / m_val) / g_val
+  m_val <- do.call(rgamma, c(list(N), inv_m))
+  MB2 * p_val * exp(- g_val * m_val) / g_val  
 }
 ```
 
-A function that does the bootstrapping, together with diagnostic plots:
+Bootstrapping the mosquito survival data:
 
 ```{r}
-bootstrapping <- function(x, title, n = 1e4) {
-  marc <- replicate(n, 1 / mean(sample(x, replace = TRUE)))
-  plot(cummean(marc), type = "l", ylab = "cumulative mean of the mean", main = title)
-  quantile(marc, c(.025, .5, .975))
-}
+n <- 1e4
+tmp <- map(mortality, ~ replicate(n, 1 / mean(sample(.x, replace = TRUE))))
 ```
 
-Confidence intervals (5"):
+Checking for convergence:
 
 ```{r}
 opar <- par(mfrow = c(2, 2))
-map2_dfr(mortality, names(mortality), bootstrapping)
+walk2(tmp, names(tmp),
+      ~ plot(cummean(.x), main = .y, type = "l",
+             ylab = "cumulative mean of the mortality rate"))
 par(opar)
 ```
 
-Performing the simulations for the 4 groups (47"):
+Looking at the bootstrapped distribution of the mortality rates:
+
+```{r}
+opar <- par(mfrow = c(2, 2))
+walk2(tmp, names(tmp), ~ hist(.x, main = .y, xlab = "mortality rate", n = 100))
+par(opar)
+```
+
+Performing the simulations for the 4 groups:
 
 ```{r simulations, dependson = "simulator"}
 sim_output <- mcmapply(simulate, rep(p_par, c(3, 1)), mortality, SIMPLIFY = FALSE, mc.cores = 4) |> 
@@ -268,32 +297,6 @@ The means:
 map_dbl(sim_output, mean)
 ```
 
-A function that calculates the proportion of the values of a vector `x` that are
-below a threshold `t`:
-
-```{r}
-prop_below_th <- function(x, t = 1) length(x[x < t]) / length(x)
-```
-
-Proportions below 1:
-
-```{r}
-map_dbl(sim_output, prop_below_th)
-```
-
-A function that selects the values of a vector `s` above or equal a threshold
-value `t`:
-
-```{r}
-above_threshold <- function(x, t = 1) x[x >= t]
-```
-
-The means for values above 1:
-
-```{r}
-map_dbl(sim_output, ~ mean(above_threshold(.x)))
-```
-
 A function that computes the standard error of the mean:
 
 ```{r}
@@ -303,16 +306,16 @@ stderror <- function(x) sd(x) / sqrt(length(x))
 Standard errors of the mean:
 
 ```{r}
-map_dbl(sim_output, ~ stderror(above_threshold(.x)))
+map_dbl(sim_output, ~ stderror(.x))
 ```
 
 A function that adds boxplots to a figure:
 
 ```{r add_boxplot}
-add_boxplot <- function(x, y, f = log10, t = 1e-20, eps = .1, lwd = 2, col = 1) {
-  x <- as.vector(boxplot(f(above_threshold(x, t)), plot = FALSE)$stats)
+add_boxplot <- function(x, y, eps = .1, lwd = 2, col = 1) {
+  x <- as.vector(boxplot(x, plot = FALSE)$stats)
   segments2 <- function(...) segments(..., lwd = lwd, col = col)
-  segments2(0, y, x[2], y)
+  segments2(x[1], y, x[2], y)
   segments2(x[4], y, x[5], y)
   segments2(x[3], y - eps, x[3], y + eps)
   polygon(c(x[2], x[4], x[4], x[2]),
@@ -321,43 +324,33 @@ add_boxplot <- function(x, y, f = log10, t = 1e-20, eps = .1, lwd = 2, col = 1) 
 }
 ```
 
-Graph parameters:
-
-```{r graph_par}
-f <- log10
-from <- 0
-to <- log10(60)
-```
-
-Computing densities of transformed simulated VC data:
+Computing densities of simulated VC data:
 
 ```{r computes_density, dependson = "graph_par"}
-densities <- map(sim_output, ~ density(f(above_threshold(.x, 10^from)), from = from, to = to))
+from <- 0
+to <- 30
+densities <- map(sim_output, ~ density(.x), from = from, to = to)
 ```
 
 Figure 5:
 
 ```{r dependson = "graph_par", dependson = "computes_density", dependson = "add_boxplot", dependson = "simulations"}
-y0 <- 7.9
-y_step <- .31
-eps <- .1
+y0 <- .42
+y_step <- .03
+eps <- .01
 
 lines2 <- function(...) lines(..., lwd = 2)
 
-plot(NA, xlim = c(from, to), ylim = c(0, 9), xaxs = "i", yaxs = "i",
-     xlab = "vectorial capacity", ylab = "density", axes = FALSE)
-
-ats <- c(1:10, 2:10 * 10)
-axis(1, log10(ats), ats)
-axis(2)
+plot(NA, xlim = c(from, to), ylim = c(0, .7), xaxs = "i", yaxs = "i",
+     xlab = "vectorial capacity", ylab = "density")
 
 walk2(densities, c(2, 3, 4, 1), ~ with(.x, lines2(x, y, col = .y)))
 
 ind <- c(2, 3, 1, 4)
-pwalk(list(sim_output[ind], (0:3), c(2, 3, 4, 1)[ind]),
+pwalk(list(sim_output[ind], c(0, 1, 0, 0), c(2, 3, 4, 1)[ind]),
       function(x, y, z) add_boxplot(x, y0 + y * y_step, col = z, eps = eps))
 
-legend(0, 7.4, cex = .95,
+legend("topleft", cex = .95,
        legend = c("  4-day-old observed",
                   "12-day-old observed",
                   "12-day-old with survival of uninfected controls",
